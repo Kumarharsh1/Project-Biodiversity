@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import os
 import google.generativeai as genai
 from PIL import Image
@@ -16,14 +16,14 @@ genai.configure(api_key=GEMINI_API_KEY)
 REGIONAL_DATA = {
     'Madhya Pradesh': {
         'climate': 'Subtropical',
-        'temperature': '20-38�C',
+        'temperature': '20-38?C',
         'rainfall': '1000-1600mm',
         'soil_types': ['Black Soil', 'Alluvial Soil', 'Red-Yellow Soil'],
         'soil_ph': '6.0-8.0 (Neutral)'
     },
     'Maharashtra': {
         'climate': 'Tropical', 
-        'temperature': '25-35�C',
+        'temperature': '25-35?C',
         'rainfall': '700-1200mm',
         'soil_types': ['Black Soil', 'Laterite Soil'],
         'soil_ph': '6.5-8.5 (Neutral to alkaline)'
@@ -138,7 +138,7 @@ def parse_gemini_response(text):
 
 def generate_climate_analysis(species_info, region_data):
     """Generate climate compatibility analysis"""
-    return f"??? CLIMATE EXPERT: The {species_info['common_name']} is well-suited for {region_data.get('climate', 'the regional')} climate in this area. With temperature ranges of {region_data.get('temperature', '20-35�C')} and rainfall of {region_data.get('rainfall', '1000-1600mm')}, the conditions are optimal for healthy growth and development."
+    return f"??? CLIMATE EXPERT: The {species_info['common_name']} is well-suited for {region_data.get('climate', 'the regional')} climate in this area. With temperature ranges of {region_data.get('temperature', '20-35?C')} and rainfall of {region_data.get('rainfall', '1000-1600mm')}, the conditions are optimal for healthy growth and development."
 
 def generate_biodiversity_analysis(species_info, region_data):
     """Generate biodiversity impact analysis"""
@@ -150,4 +150,4 @@ def generate_restoration_analysis(species_info, region_data):
 
 if __name__ == '__main__':
     pass  # No action needed for Streamlit deployment
-    # app.run(debug=True)  # Removed for Streamlit deployment
+    # # app.run(debug=True)  # Removed for Streamlit deployment  # Removed for Streamlit deployment
