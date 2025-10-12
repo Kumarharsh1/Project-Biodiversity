@@ -1,0 +1,670 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Prakriti - Advanced Ecological Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #388e3c;
+            --accent-color: #7cb342;
+            --light-bg: #f8f9fa;
+            --dark-text: #2e2e2e;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f5f5;
+            color: var(--dark-text);
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        .custom-navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .animate-charcter {
+            background-image: linear-gradient(-225deg, #ffffff 0%, #e8f5e9 29%, #c8e6c9 67%, #ffffff 100%);
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 3s linear infinite;
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+        
+        .custom-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        
+        .custom-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+        
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: var(--primary-color);
+            background-color: #e8f5e9;
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .upload-area:hover .upload-icon {
+            color: var(--primary-color);
+        }
+        
+        .file-item {
+            background-color: #f1f8e9;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .file-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .result-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .conversation-container {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .message {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        
+        .climate-message {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .biodiversity-message {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .restoration-message {
+            background-color: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .visualization-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .viz-placeholder {
+            height: 120px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #757575;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .timeline-point {
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+        
+        .timeline-content {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .custom-footer {
+            background-color: var(--dark-text);
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 0.5s ease-out;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #689f38;
+            border-color: #689f38;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container">
+            <a class="navbar-brand animate-charcter" href="#">
+                <i class="fas fa-leaf"></i> Project Prakriti - Enhanced with Gemini API
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mt-4">
+        <!-- Upload Section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-card">
+                    <h3><i class="fas fa-cloud-upload-alt"></i> STEP 1: UPLOAD PLANT SPECIES IMAGES</h3>
+                    <p class="text-muted">Upload 1-4 plant images for advanced analysis</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <i class="fas fa-images upload-icon"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <input type="file" id="imageUpload" multiple accept="image/*" style="display: none;">
+                        <button class="btn btn-primary mt-3" onclick="document.getElementById('imageUpload').click()">
+                            <i class="fas fa-folder-open"></i> Select Images
+                        </button>
+                    </div>
+                    
+                    <div id="selectedFiles" class="mt-3" style="display: none;">
+                        <h5>Selected Images:</h5>
+                        <div id="fileList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Region Selection -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="custom-card">
+                    <h3><i class="fas fa-globe-asia"></i> STEP 2: SELECT ANALYSIS REGION</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select class="form-select" id="regionSelect">
+                                <option value="">Choose Indian State...</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Uttarakhand">Uttarakhand</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Kerala">Kerala</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-success w-100" id="analyzeBtn" disabled>
+                                <i class="fas fa-play"></i> Start Enhanced Analysis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Results -->
+        <div id="analysisResults" style="display: none;">
+            <!-- Species Identification -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="custom-card slide-in-left">
+                        <h3><i class="fas fa-search"></i> GEMINI-POWERED SPECIES IDENTIFICATION</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="uploadedImagesGrid"></div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="result-item">
+                                    <h5>Identification Results:</h5>
+                                    <p><strong>Common Name:</strong> <span id="commonName">-</span></p>
+                                    <p><strong>Scientific Name:</strong> <em><span id="scientificName">-</span></em></p>
+                                    <p><strong>Family:</strong> <span id="familyName">-</span></p>
+                                    <p><strong>Confidence:</strong> <span class="badge bg-success" id="confidence">-</span></p>
+                                    <p><strong>Method:</strong> <span id="method">-</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expert Analysis Conversation -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="custom-card pulse-animation">
+                        <h3><i class="fas fa-comments"></i> EXPERT AGENT CONVERSATION</h3>
+                        <div class="conversation-container">
+                            <div class="message climate-message">
+                                <strong>🌤️ CLIMATE EXPERT:</strong>
+                                <div id="climateAnalysis">Analyzing regional climate compatibility...</div>
+                            </div>
+                            <div class="message biodiversity-message">
+                                <strong>🌿 BIODIVERSITY EXPERT:</strong>
+                                <div id="biodiversityAnalysis">Assessing ecological impact and biodiversity...</div>
+                            </div>
+                            <div class="message restoration-message">
+                                <strong>🔨 RESTORATION EXPERT:</strong>
+                                <div id="restorationAnalysis">Developing comprehensive restoration plan...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soil & Climate Analysis -->
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="custom-card slide-in-left">
+                        <h3><i class="fas fa-temperature-high"></i> CLIMATE ANALYSIS</h3>
+                        <div id="climateDetails">
+                            <p><strong>Region:</strong> <span id="regionName">-</span></p>
+                            <p><strong>Climate Type:</strong> <span id="climateType">-</span></p>
+                            <p><strong>Temperature:</strong> <span id="temperature">-</span></p>
+                            <p><strong>Rainfall:</strong> <span id="rainfall">-</span></p>
+                            <p><strong>Growing Season:</strong> <span id="growingSeason">-</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="custom-card slide-in-right">
+                        <h3><i class="fas fa-mountain"></i> SOIL COMPATIBILITY</h3>
+                        <div id="soilDetails">
+                            <p><strong>Major Soil Types:</strong> <span id="soilTypes">-</span></p>
+                            <p><strong>Soil pH:</strong> <span id="soilPH">-</span></p>
+                            <p><strong>Compatibility:</strong> <span class="badge bg-success" id="soilCompatibility">-</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restoration Visualizations -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="custom-card">
+                        <h3><i class="fas fa-seedling"></i> RESTORATION VISUALIZATIONS</h3>
+                        <p class="text-muted">AI-generated progression of plant restoration</p>
+                        <div class="row" id="restorationVisualizations">
+                            <div class="col-md-3">
+                                <div class="visualization-card">
+                                    <div class="viz-placeholder">Initial Planting</div>
+                                    <p class="text-center">Month 0</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="visualization-card">
+                                    <div class="viz-placeholder">Early Growth</div>
+                                    <p class="text-center">6 Months</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="visualization-card">
+                                    <div class="viz-placeholder">Established Plant</div>
+                                    <p class="text-center">2 Years</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="visualization-card">
+                                    <div class="viz-placeholder">Mature Ecosystem</div>
+                                    <p class="text-center">5 Years</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Timeline -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="custom-card">
+                        <h3><i class="fas fa-chart-line"></i> GROWTH PROJECTION TIMELINE</h3>
+                        <div id="growthTimeline">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <h6>Month 1-3</h6>
+                                        <p>Root establishment and initial growth</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <h6>Month 6-12</h6>
+                                        <p>Significant vertical growth and branching</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <h6>Year 2-3</h6>
+                                        <p>Canopy development and flowering</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-point"></div>
+                                    <div class="timeline-content">
+                                        <h6>Year 5+</h6>
+                                        <p>Mature specimen with full ecological benefits</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="text-center mt-4" style="display: none;">
+            <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Analyzing...</span>
+            </div>
+            <p class="mt-2">Running enhanced analysis with Gemini API...</p>
+        </div>
+    </div>
+
+    <!-- Professional Footer -->
+    <footer class="custom-footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Project Prakriti - Enhanced Ecological Analysis</h5>
+                    <p>Powered by Gemini API, Climate Data APIs, and GBIF Biodiversity Data</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p><strong>Made by Kumar Harsh</strong></p>
+                    <p><i class="fas fa-envelope"></i> kh949118@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> 9279157296</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // File upload handling
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const fileList = document.getElementById('fileList');
+            const selectedFiles = document.getElementById('selectedFiles');
+            const uploadedImagesGrid = document.getElementById('uploadedImagesGrid');
+            
+            fileList.innerHTML = '';
+            uploadedImagesGrid.innerHTML = '';
+            
+            if (files.length > 0) {
+                selectedFiles.style.display = 'block';
+                const imageGrid = document.createElement('div');
+                imageGrid.className = 'image-grid';
+                
+                for (let i = 0; i < files.length; i++) {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    fileItem.innerHTML = `<i class="fas fa-file-image"></i> ${files[i].name}`;
+                    fileList.appendChild(fileItem);
+                    
+                    // Create image preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'image-preview';
+                        imageGrid.appendChild(img);
+                    }
+                    reader.readAsDataURL(files[i]);
+                }
+                
+                uploadedImagesGrid.appendChild(imageGrid);
+                checkAnalysisReady();
+            }
+        });
+
+        // Region selection handling
+        document.getElementById('regionSelect').addEventListener('change', checkAnalysisReady);
+
+        function checkAnalysisReady() {
+            const files = document.getElementById('imageUpload').files;
+            const region = document.getElementById('regionSelect').value;
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            
+            analyzeBtn.disabled = !(files.length > 0 && region);
+        }
+
+        // Real API call to your backend
+        document.getElementById('analyzeBtn').addEventListener('click', async function() {
+            const files = document.getElementById('imageUpload').files;
+            const region = document.getElementById('regionSelect').value;
+            
+            if (files.length > 0 && region) {
+                // Show loading
+                document.getElementById('loadingSpinner').style.display = 'block';
+                document.getElementById('analyzeBtn').disabled = true;
+                
+                try {
+                    const formData = new FormData();
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append('images', files[i]);
+                    }
+                    formData.append('region', region);
+                    
+                    const response = await fetch('/analyze', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        updateResultsWithRealData(result);
+                    } else {
+                        alert('Error: ' + result.error);
+                    }
+                    
+                } catch (error) {
+                    alert('Analysis failed: ' + error.message);
+                } finally {
+                    document.getElementById('loadingSpinner').style.display = 'none';
+                    document.getElementById('analyzeBtn').disabled = false;
+                }
+            }
+        });
+
+        function updateResultsWithRealData(result) {
+            // Update with real data from backend
+            document.getElementById('commonName').textContent = result.species_info.common_name;
+            document.getElementById('scientificName').textContent = result.species_info.scientific_name;
+            document.getElementById('familyName').textContent = result.species_info.family;
+            document.getElementById('confidence').textContent = result.species_info.confidence;
+            document.getElementById('method').textContent = result.species_info.method;
+            
+            document.getElementById('regionName').textContent = document.getElementById('regionSelect').value;
+            document.getElementById('climateType').textContent = result.region_data.climate;
+            document.getElementById('temperature').textContent = result.region_data.temperature;
+            document.getElementById('rainfall').textContent = result.region_data.rainfall;
+            document.getElementById('growingSeason').textContent = 'Kharif (June-Oct), Rabi (Nov-Mar)';
+            
+            document.getElementById('soilTypes').textContent = result.region_data.soil_types.join(', ');
+            document.getElementById('soilPH').textContent = result.region_data.soil_ph;
+            document.getElementById('soilCompatibility').textContent = 'Excellent';
+            
+            // Expert conversations
+            document.getElementById('climateAnalysis').innerHTML = result.climate_analysis;
+            document.getElementById('biodiversityAnalysis').innerHTML = result.biodiversity_analysis;
+            document.getElementById('restorationAnalysis').innerHTML = result.restoration_analysis;
+            
+            // Show results
+            document.getElementById('analysisResults').style.display = 'block';
+        }
+
+        // Drag and drop functionality
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            document.getElementById('imageUpload').files = e.dataTransfer.files;
+            // Trigger change event
+            const event = new Event('change');
+            document.getElementById('imageUpload').dispatchEvent(event);
+        });
+    </script>
+</body>
+</html>

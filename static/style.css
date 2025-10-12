@@ -1,0 +1,146 @@
+﻿/* Add these to your existing style.css */
+
+/* Upload Area Styles */
+.upload-area {
+    border: 2px dashed #2e8b57;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    background: rgba(46, 139, 87, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover, .upload-area.drag-over {
+    background: rgba(46, 139, 87, 0.1);
+    border-color: #1a535c;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: #2e8b57;
+    margin-bottom: 15px;
+}
+
+/* File Items */
+.file-item {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.file-item i {
+    color: #2e8b57;
+    margin-right: 10px;
+}
+
+/* Conversation Styles */
+.conversation-container {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    animation: fadeInUp 0.5s ease;
+}
+
+.climate-message {
+    background: rgba(135, 206, 250, 0.2);
+    border-left: 4px solid #87cefa;
+}
+
+.biodiversity-message {
+    background: rgba(144, 238, 144, 0.2);
+    border-left: 4px solid #90ee90;
+    animation-delay: 0.3s;
+}
+
+.restoration-message {
+    background: rgba(255, 215, 0, 0.2);
+    border-left: 4px solid #ffd700;
+    animation-delay: 0.6s;
+}
+
+/* Visualization Cards */
+.visualization-card {
+    text-align: center;
+    padding: 15px;
+}
+
+.viz-placeholder {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-point {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background: #2e8b57;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #2e8b57;
+}
+
+.timeline-content {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Result Items */
+.result-item {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .upload-area {
+        padding: 20px;
+    }
+    
+    .conversation-container {
+        padding: 10px;
+    }
+}
