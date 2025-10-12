@@ -43,9 +43,9 @@ st.markdown('''
 class PrakritiAnalyzer:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        # Use stable, working models
+        # Use the correct model names that are currently available
         self.vision_model = genai.GenerativeModel('gemini-1.5-flash-001')
-        self.text_model = genai.GenerativeModel('gemini-1.5-pro-001')
+        self.text_model = genai.GenerativeModel('gemini-1.5-flash-001')
         
         # Regional data for analysis
         self.region_data = {
@@ -115,7 +115,7 @@ class PrakritiAnalyzer:
             response = self.vision_model.generate_content([prompt, image])
             return response.text
         except Exception as e:
-            return f"Vision analysis failed: {str(e)}"
+            return f"Analysis failed: {str(e)}"
 
     def get_climate_analysis(self, plant_info, region):
         "Get climate expert analysis"
@@ -201,7 +201,7 @@ def main():
                 analyzer = PrakritiAnalyzer(api_key)
                 first_image = Image.open(uploaded_files[0])
                 
-                with st.spinner('🔬 Running AI analysis with Gemini...'):
+                with st.spinner('🔬 Running AI analysis...'):
                     species_info = analyzer.analyze_plant_species(first_image, region)
                     climate_analysis = analyzer.get_climate_analysis(species_info, region)
                     biodiversity_analysis = analyzer.get_biodiversity_analysis(species_info, region)
@@ -211,36 +211,17 @@ def main():
                 
                 # Display results
                 st.subheader("📊 Identification Results")
-                
-                # Try to parse species info
-                lines = species_info.split('\n')
-                common_name = "See detailed analysis"
-                scientific_name = "See detailed analysis"
-                family = "See detailed analysis"
-                
-                for line in lines:
-                    line_lower = line.lower()
-                    if 'common' in line_lower and 'name' in line_lower:
-                        common_name = line.split(':')[-1].strip() if ':' in line else line
-                    elif 'scientific' in line_lower:
-                        scientific_name = line.split(':')[-1].strip() if ':' in line else line
-                    elif 'family' in line_lower and not 'plant family' in line_lower:
-                        family = line.split(':')[-1].strip() if ':' in line else line
-                
                 col1, col2 = st.columns(2)
+                
                 with col1:
-                    st.metric("Common Name", common_name)
-                    st.metric("Scientific Name", scientific_name)
-                    st.metric("Family", family)
+                    st.metric("Common Name", "See analysis")
+                    st.metric("Scientific Name", "See analysis")
+                    st.metric("Family", "See analysis")
                 
                 with col2:
                     st.metric("Confidence", "AI Analysis")
                     st.metric("Region", region)
                     st.metric("Method", "Gemini AI")
-                
-                # Detailed species analysis
-                with st.expander("📋 View Detailed Species Analysis"):
-                    st.write(species_info)
                 
                 # Expert Analysis
                 st.subheader("💬 Expert Analysis")
@@ -270,7 +251,7 @@ def main():
                 
             except Exception as e:
                 st.error(f"❌ Analysis failed: {str(e)}")
-                st.info("Please check your API key and try again with a clear plant image.")
+                st.info("Check your API key and try again.")
 
 if __name__ == "__main__":
     main()
