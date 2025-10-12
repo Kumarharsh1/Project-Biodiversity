@@ -1,4 +1,4 @@
-﻿import streamlit as st
+import streamlit as st
 import google.generativeai as genai
 from PIL import Image
 import requests
@@ -10,7 +10,7 @@ from datetime import datetime
 # Page configuration
 st.set_page_config(
     page_title="Project Prakriti - Real AI Analysis",
-    page_icon="🌿",
+    page_icon="??",
     layout="wide"
 )
 
@@ -50,7 +50,7 @@ class PrakritiAnalyzer:
         self.region_data = {
             "Maharashtra": {
                 "climate": "Tropical",
-                "temperature": "22-34°C",
+                "temperature": "22-34�C",
                 "rainfall": "700-1200mm",
                 "soil_types": ["Black Soil", "Laterite Soil", "Alluvial Soil"],
                 "soil_ph": "6.5-8.5",
@@ -58,7 +58,7 @@ class PrakritiAnalyzer:
             },
             "Karnataka": {
                 "climate": "Tropical",
-                "temperature": "20-35°C", 
+                "temperature": "20-35�C", 
                 "rainfall": "800-1400mm",
                 "soil_types": ["Red Soil", "Black Soil", "Laterite Soil"],
                 "soil_ph": "6.0-8.0",
@@ -66,7 +66,7 @@ class PrakritiAnalyzer:
             },
             "Madhya Pradesh": {
                 "climate": "Subtropical",
-                "temperature": "18-38°C",
+                "temperature": "18-38�C",
                 "rainfall": "1000-1600mm",
                 "soil_types": ["Black Soil", "Alluvial Soil", "Red-Yellow Soil"],
                 "soil_ph": "6.5-8.5",
@@ -74,7 +74,7 @@ class PrakritiAnalyzer:
             },
             "Jharkhand": {
                 "climate": "Subtropical", 
-                "temperature": "20-35°C",
+                "temperature": "20-35�C",
                 "rainfall": "1200-1600mm",
                 "soil_types": ["Red Soil", "Laterite Soil", "Alluvial Soil"],
                 "soil_ph": "5.5-7.5",
@@ -82,7 +82,7 @@ class PrakritiAnalyzer:
             },
             "Uttarakhand": {
                 "climate": "Temperate",
-                "temperature": "5-25°C",
+                "temperature": "5-25�C",
                 "rainfall": "1500-2500mm", 
                 "soil_types": ["Mountain Soil", "Forest Soil", "Alluvial Soil"],
                 "soil_ph": "5.0-7.0",
@@ -90,7 +90,7 @@ class PrakritiAnalyzer:
             },
             "Rajasthan": {
                 "climate": "Arid",
-                "temperature": "25-45°C",
+                "temperature": "25-45�C",
                 "rainfall": "200-400mm",
                 "soil_types": ["Desert Soil", "Sand Dunes", "Saline Soil"],
                 "soil_ph": "7.5-9.0",
@@ -98,7 +98,7 @@ class PrakritiAnalyzer:
             },
             "Kerala": {
                 "climate": "Tropical",
-                "temperature": "23-32°C",
+                "temperature": "23-32�C",
                 "rainfall": "3000-5000mm",
                 "soil_types": ["Laterite Soil", "Alluvial Soil", "Forest Soil"],
                 "soil_ph": "5.0-6.5",
@@ -149,20 +149,20 @@ class PrakritiAnalyzer:
             return f"Restoration analysis failed: {str(e)}"
 
 def main():
-    st.markdown('<h1 class="main-header">🌿 Project Prakriti - Real AI Analysis</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">?? Project Prakriti - Real AI Analysis</h1>', unsafe_allow_html=True)
     
     # API Key input
-    st.sidebar.header("🔐 Gemini API Configuration")
+    st.sidebar.header("?? Gemini API Configuration")
     api_key = st.sidebar.text_input("Enter your Gemini API Key:", type="password")
     
     if not api_key:
-        st.info("🔑 **Get Your Free Gemini API Key:** 1. Visit: https://ai.google.dev/ 2. Create an account and get API key 3. Enter the key in the sidebar to start analysis")
+        st.info("?? **Get Your Free Gemini API Key:** 1. Visit: https://ai.google.dev/ 2. Create an account and get API key 3. Enter the key in the sidebar to start analysis")
         return
 
-    st.success("✅ API Key configured successfully!")
+    st.success("? API Key configured successfully!")
     
     # File upload section
-    st.header("📸 STEP 1: Upload Plant Images")
+    st.header("?? STEP 1: Upload Plant Images")
     uploaded_files = st.file_uploader(
         "Select 1-4 plant images for analysis",
         type=['png', 'jpg', 'jpeg'],
@@ -171,7 +171,7 @@ def main():
     )
     
     # Region selection
-    st.header("🌍 STEP 2: Select Analysis Region")
+    st.header("?? STEP 2: Select Analysis Region")
     region = st.selectbox(
         "Choose Indian State for Regional Analysis",
         ["", "Maharashtra", "Karnataka", "Madhya Pradesh", "Jharkhand", 
@@ -180,7 +180,7 @@ def main():
     
     # Show image previews
     if uploaded_files:
-        st.subheader("📷 Image Previews")
+        st.subheader("?? Image Previews")
         cols = st.columns(min(4, len(uploaded_files)))
         for i, uploaded_file in enumerate(uploaded_files):
             with cols[i]:
@@ -191,40 +191,40 @@ def main():
                     st.error(f"Error loading image {i+1}: {str(e)}")
     
     # Analysis button
-    if st.button("🚀 Start Real AI Analysis", type="primary", use_container_width=True):
+    if st.button("?? Start Real AI Analysis", type="primary", use_container_width=True):
         if not uploaded_files:
-            st.error("❌ Please upload at least one plant image")
+            st.error("? Please upload at least one plant image")
         elif not region:
-            st.error("❌ Please select a region")
+            st.error("? Please select a region")
         else:
             # Initialize analyzer
             analyzer = PrakritiAnalyzer(api_key)
             
-            with st.spinner('🔬 Running advanced AI analysis with Gemini... This may take 30-60 seconds.'):
+            with st.spinner('?? Running advanced AI analysis with Gemini... This may take 30-60 seconds.'):
                 try:
                     # Use first image for analysis
                     first_image = Image.open(uploaded_files[0])
                     
                     # Step 1: Species Identification
-                    st.subheader("🌿 Species Identification")
+                    st.subheader("?? Species Identification")
                     with st.expander("View Analysis Progress", expanded=True):
-                        st.info("🔍 Analyzing plant species with Gemini Vision AI...")
+                        st.info("?? Analyzing plant species with Gemini Vision AI...")
                         species_info = analyzer.analyze_plant_species(first_image, region)
                         
-                        st.info("🌤️ Consulting climate expert...")
+                        st.info("??? Consulting climate expert...")
                         climate_analysis = analyzer.get_climate_analysis(species_info, region)
                         
-                        st.info("🌿 Consulting biodiversity expert...")
+                        st.info("?? Consulting biodiversity expert...")
                         biodiversity_analysis = analyzer.get_biodiversity_analysis(species_info, region)
                         
-                        st.info("🔨 Consulting restoration expert...")
+                        st.info("?? Consulting restoration expert...")
                         restoration_analysis = analyzer.get_restoration_analysis(species_info, region)
                     
                     # Display Results
-                    st.success("✅ Real AI Analysis Complete!")
+                    st.success("? Real AI Analysis Complete!")
                     
                     # Species Results
-                    st.subheader("📊 Identification Results")
+                    st.subheader("?? Identification Results")
                     
                     # Display raw species info first
                     with st.expander("View Detailed Species Analysis", expanded=True):
@@ -256,19 +256,19 @@ def main():
                         st.metric("Method", "Gemini Vision AI")
                     
                     # Expert Analysis Section
-                    st.subheader("💬 Real Expert Analysis Conversation")
+                    st.subheader("?? Real Expert Analysis Conversation")
                     
-                    with st.expander("🌤️ CLIMATE EXPERT ANALYSIS", expanded=True):
+                    with st.expander("??? CLIMATE EXPERT ANALYSIS", expanded=True):
                         st.markdown(f'<div class="expert-message">{climate_analysis}</div>', unsafe_allow_html=True)
                     
-                    with st.expander("🌿 BIODIVERSITY EXPERT ANALYSIS", expanded=True):
+                    with st.expander("?? BIODIVERSITY EXPERT ANALYSIS", expanded=True):
                         st.markdown(f'<div class="expert-message">{biodiversity_analysis}</div>', unsafe_allow_html=True)
                     
-                    with st.expander("🔨 RESTORATION EXPERT ANALYSIS", expanded=True):
+                    with st.expander("?? RESTORATION EXPERT ANALYSIS", expanded=True):
                         st.markdown(f'<div class="expert-message">{restoration_analysis}</div>', unsafe_allow_html=True)
                     
                     # Regional Data
-                    st.subheader("🌡️ Regional Climate & Soil Analysis")
+                    st.subheader("??? Regional Climate & Soil Analysis")
                     region_info = analyzer.region_data.get(region, {})
                     
                     col1, col2 = st.columns(2)
@@ -288,7 +288,7 @@ def main():
                     st.balloons()
                     
                 except Exception as e:
-                    st.error(f"❌ Analysis failed: {str(e)}")
+                    st.error(f"? Analysis failed: {str(e)}")
                     st.info("This might be due to: API key issues, image format problems, or Gemini API limitations. Try with a clearer plant image.")
 
 if __name__ == "__main__":
